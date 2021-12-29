@@ -1,0 +1,15 @@
+- django-hit-counts
+- django-rate-limits
+- django-axes
+- django-compressor
+- django-anymail
+- versatile-image
+- django-templated-email
+- django-redis & redis (caching)
+- django_extensions
+- easy-thumbnail/solr-thumbnail/imagekit
+
+
+
+
+& google analytics + recapture

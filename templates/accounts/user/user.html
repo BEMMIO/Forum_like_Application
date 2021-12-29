@@ -1,0 +1,46 @@
+{% extends '_layout.html' %}
+{% load static %}
+
+<!-- content -->
+{% block content %}
+
+				<section class="container-fluid">
+						<section class="row">
+							<section class="col-lg-12 col-md-12 col-sm-12" style="background:#916e0c; height: 253px;">
+						 		<!-- User Profile Header -->
+						 		<section class="text-center" style="margin-top: 6.2%;">
+						 				<img src="{{ user.get_user_avatar }}" alt="{{ user.username }}'s avatar" class="user-pg-avatar-img"/>
+						 				<section class="text-center">
+							 					<!-- username -->
+							 					<span class="user-pg-username-span user-pg-span-text">
+							 					{{ user.username|title }}</span><br>
+
+							 					<!-- online-offsline status -->
+							 					<span class="user-pg-online-status-text"><span class="user-status {% if user.online_tracker.is_online %}user-is-online{% else %}user-is-offline{% endif %}"></span> {% if user.online_tracker.is_online %}Online{% else %}Offline{% endif %}</span>
+							 					
+							 					<!-- dot -->
+							 					<span style="vertical-align: text-bottom;color: #fff;">.</span>
+
+							 					{% if user.date_joined %}
+								 					<!-- joined datetime -->
+								 					<span class="user-pg-joined-span user-pg-span-text">
+								 						Joined {{ user.better_joined_datetime }}
+								 					</span>
+							 					{% endif %}
+						 				</section>
+						 		</section>
+						 		<!-- / User Profile Header -->
+
+							</section>
+						</section>
+						<section class="row">
+							<section class="container-fluid">
+								<section class="row">
+									<section class="col-lg-12">
+										User Data
+									</section>
+								</section>
+							</section>
+						</section>
+				</section>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!-- style this template -->
+{% load static %}
+
+
+{% if is_article_type %}
+
+<small style="font-size: 12px;
+    font-weight: 400;
+    color: grey;
+    padding-left: 12px;
+    font-family: sans-serif;">Search took {{ search_time_out }} s to complete
+</small>
+
+{% for article in qs %}
+
+<a href="{% url 'blog:article-view' article.slug %}">
+<div class="card search-results" style="border:none;padding:6px;">
+  <div class="card-body" style="line-height: 20px;
+    font-size: 13px;">
+    <h6 class="card-subtitle mb-2 text-muted" style="font-size: 13px;
+    font-weight: bolder;
+    margin-bottom: 0px !important;">{{ article.title }}</h6>
+    <p class="card-text">{{ article.article_short_content|linebreaksbr }}</p>
+    <span>written by <b>{{ article.created_by.username }}</b><span style="vertical-align: text-bottom;color: grey;"> .</span> {{ article.strformat_published_date }}</span>
+  </div>
+</div>
+</a>
+{% endfor %}
+
+{% else %}
+
+<small style="font-size: 12px;
+    font-weight: 400;
+    color: grey;
+    padding-left: 12px;
+    font-family: sans-serif;">Search took {{ search_time_out }} s to complete
+</small>
+
+{% for user in qs %}
+
+<div class="card search-results" style="border:none;padding:6px;">
+  <div class="card-body" style="line-height: 20px;
+    font-size: 13px;">
+    <img src="{% static 'img/1.png' %}" class="navbar-avatar" alt="admin" />
+    <h6 class="card-subtitle mb-2 text-muted" style="font-size: 13px;
+    font-weight: bolder;
+    margin-bottom: 0px !important;">{{ user.username }}</h6>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endif %}

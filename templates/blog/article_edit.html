@@ -1,0 +1,35 @@
+{% extends '_layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- content -->
+{% block content %}
+
+	<section class="container mtt-7">
+				<section class="row">
+				<!-- Left Content row -->
+					<section class="col-lg-8 col-md-12 col-sm-12 col-padding-lr-zero" id="content-section-margin">
+						<h3 class="text-center">Edit Article</h3>
+					<form action="." method="post" enctype="multipart/form-data">
+						{%csrf_token%}
+						{{ form|crispy }}
+						{% if is_published %}
+						<input  class="btn primary" type="submit" name="publish-article" value="Save & Publish">
+						{% else %}
+						<input  class="btn primary" type="submit" name="publish-article" value="Publish">
+						<input  class="btn btn-draft-primary" type="submit" name="draft-article" value="Save Draft">
+						{% endif %}
+					</form>
+					</section>
+				<!-- /Left content row -->
+				<section class="col-lg-4">
+					<div>
+						<!-- Design better and use Js to toggle -->
+						<p><b>Writing a Great Article Title</b></p>
+						<p>Think of your article title as a super short (but compelling!) description — like an overview of the actual article in one short sentence.
+						Use keywords(with the help of <b>tags</b>) where appropriate to help ensure people can find your article by search.</p>
+					</div>
+				</section>
+				</section>
+	</section>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends '_layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- content -->
+{% block content %}
+
+<section class="container mtt-7">
+				<section class="row">
+					<section class="col-lg-12">
+						<hgroup class="invitation-hgroup text-center mb-4">
+							<h3>Invite people to join.</h3>
+							<h5>
+								Invite your colleagues and love ones. its <i>free</i> and always will be.
+							</h5>
+						</hgroup>
+					</section>	
+				</section>
+				<section class="row">
+				<!-- Left Content row -->
+					<section class="col-lg-12 col-padding-lr-zero" style="padding: 1em 1em !important;">
+						
+						<section class="row hide-toggle" style="display:none;">
+							<section class="col-lg-12 col-md-12 col-sm-12">
+								<h4 style="color: #484343;font-weight: 600;" class="auto-text-update mb-2"></h4>
+							</section>
+						</section>
+
+						<!-- Error Messages -->
+							{% if messages %}
+						        {% for message in messages %}
+						            {% if message.tags == 'success'%}
+						                <script type="text/javascript">toastr.{{ message.tags }}("{{ message }}")</script>
+						            {% elif message.tags == 'warning' %}
+						                <script type="text/javascript">toastr.{{ message.tags }}("{{ message }}")</script>
+						            {% endif %}
+						        {% endfor %}
+						    {% endif %}
+						<!-- /Error Messages -->
+
+						
+						<section class="row invite-row">
+							<section class="col-lg-10 col-md-9 col-sm-12">
+								<form class="text-center" action="." method="post">
+									{% csrf_token %}
+									{{ form|crispy }}
+								</form>
+							</section>
+							<section class="col-lg-2 col-md-2 col-sm-12">
+								<input  class="btn btn-dark js-invite-btn" type="submit" name="invitation-btn" value="Send Invite" style="height: 48px;">
+							</section>
+						</section>
+
+					</section>
+				</section>
+
+				<section class="row">
+					<section class="col-lg-12">
+						<h5 class="invite-text-h5 mb-4">Invited</h5>
+						<ul class="list-group list-group-flush">
+						  {% for invite_obj in active_invites_users %}
+
+						  		<li class="list-group-item">
+						  		 		<img src="{{ invite_obj.invite_to_user.get_user_avatar }}" 
+						  				alt="{{ invite_obj.invite_to_user.username }} pic." 
+						  				class="card-article-navbar-avatar float-left"/>
+
+						  				<span style="font-weight: bolder;">{{ invite_obj.invite_to_user.username }}</span><br>
+						  				<span style="font-size: 15px;">{{ invite_obj.invite_to_user.email }}</span>
+
+						  				{% if not invite_obj.invite_to_user.is_active %}
+
+						  				<span style="font-size: 13px;color: #ae2012;background: #ffb5b5;font-weight: bold;padding: 3px;">pending</span style="font-size: 13px;">
+
+						  				<span style="vertical-align: text-bottom;color: grey;">.</span>
+
+						  				<span><a href="#" style="color: #0077b6;">resend invitation</a></span>
+
+						  				{% else %}
+
+						  				<span style="font-size: 13px;color: #449b0e;background: #baf5cc;font-weight: bold;padding: 3px;">accepted</span style="font-size: 13px;">
+
+						  				{% endif %}
+
+						  				<i class="float-right la la-times" title="hide me!"></i>
+						  		</li>
+
+						  {% empty %}
+
+						   You haven't invited anyone yet.
+
+						  {% endfor %}
+
+						</ul>
+
+					</section>
+				</section>
+	</section>
+{% endblock %}
+
+<!-- js-scripts tag for template -->
+{% block js_template %}
+
+<script type="text/javascript" src="{% static 'js/invitation.js' %}"></script>
+
+{% endblock %}

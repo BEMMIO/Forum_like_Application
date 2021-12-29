@@ -1,0 +1,241 @@
+{% extends '_layout.html' %}
+{% load static %}
+{% load article_likes %}
+{% load crispy_forms_tags %}
+<!-- content -->
+{% block content %}
+
+	<section class="container mtt-7">
+				<section class="row">
+				<!-- Left Content row -->
+					<section class="col-lg-8 col-padding-lr-zero active-focus-article-card" style="border: 1px solid #e6e5e5; box-sizing: border-box !important;">
+						<section class="row">
+							<section class="col-lg-12 col-md-12 col-sm-12">
+								<img src="{{ article.get_article_image_or_default }}" style="height: 450px;width: inherit;max-width: 100%;box-sizing: border-box;" 
+								alt="{{ article.title }}">
+							</section>
+							<!-- article cover image (if any or a default) -->
+						</section>
+						<section class="row" style="padding: 2em;box-sizing: border-box;">
+							<section class="col-lg-12" style="border-bottom: 1px solid #dadada;padding-bottom: 2em;">
+									<!-- Article Info -->
+									<h3 class="article-title"><b>{{ article.title }}</b></h3>
+
+									{%ifequal request.user article.created_by %}
+									<form action="{% url 'blog:article-delete' article.slug %}" method="post" class="float-right">
+										{%csrf_token%}
+										<input type="hidden" name="article_delete" value="{{ article.id }}">
+										<button class="btn btn-outline-dark">Delete</button>
+									</form> 
+
+									<a href="{% url 'blog:article-edit' article.slug %}" class="btn btn-outline-dark float-right mr-2">Edit</a>
+
+									{% endifequal %}
+									<p>
+									{% for tag in article.tags.all %}
+						    		<a href="{% url 'blog:tagged' tag.slug %}" class="mr-1 badge badge-default" style="    font-size: 17px;
+  										    color: #a2a2a2;">
+						    		#{{ tag.name }}
+						    		</a>
+						    		{% endfor %}
+						    		</p>
+
+						    		<section style="margin:5px 0 5px 0">
+						    			<img src="{{ article.created_by.get_user_avatar }}" class="avatar-shadow mb-1 mr-2 card-article-navbar-avatar float-left">
+						  				<p style="color: #333;margin-bottom: 1px;"><b>{{ article.created_by.username }}</b>
+
+						  				{% if article.published_date %}
+						  				<span style="vertical-align: text-bottom;color: grey;">.</span>
+						  				<span style="color: grey; font-size: 13px;">
+						  				{{ article.strformat_published_date }}
+						  				<span style="vertical-align: text-bottom;color: grey;">.</span>
+						  				{{ article.timesince_published }}
+						  				</span>
+						  				{% endif %}
+						  				<span style="vertical-align: text-bottom;color: grey;">.</span>
+						  				<span style="color: grey; font-size: 13px;">{{article.article_readtime}}</span>
+
+						  				</p>
+						    		</section>
+
+									<p style="clear:both !important;margin: 1em 0 0 0; display: inline-block;">
+									{{ article.content|linebreaksbr }}
+									</p>
+
+									{% if article.published_date %}
+									<form action="{% url 'blog:like' %}" method="POST" class="article-like-form">
+										{% csrf_token %}
+										<input type="hidden" name="article_id" value="{{ article.id }}">
+										<button class="btn btn-like-unlike 
+										{% if request.user in article.users_like %}liked-css{% else %}like-css{% endif %}">
+										{% if request.user in article.users_like %}
+										Liked
+										{% else %}
+										Like
+										{% endif %}
+										</button>
+									</form>
+									
+									{% endif %}
+
+									{% if article.users_like %}
+									<!-- Like Label : Modal for Like users -->
+										<p>{% likes_label article %}</p>
+
+									{% endif %}
+
+									<p class="float-right">{% if not article.published_date %}<i>drafted article</i>{% endif %}</p>
+
+							</section>
+						</section>
+
+						<section class="row" style="padding:0 2em 0 2em;box-sizing: border-box;">
+
+							<section class="col-lg-12">
+								<!-- comments -->
+								<h4>
+									<b>Comment{{ article_comments_count|pluralize }} 
+									 (<span class="comments-count">{{ article_comments_count }}</span>)
+									</b>
+								</h4>
+								<!-- Form -->
+
+								<!-- Comment Form -->
+								<form action="{% url 'blog:comments' %}" method="post" class="mb-4 comment-form-cls article-comment">
+									{% csrf_token %}
+									{{ comment_form|crispy }}
+									<input type="hidden" name="article-id" value="{{ article.id }}">
+									<input type="submit" class="btn btn-primary" name="submit-comment" value="Submit">
+								</form>
+								<!-- /Comment Form -->
+							</section>
+
+							<section class="col-lg-12 column-wrap-comments">
+							{% if article_comments %}
+								<!-- Article Comment  Lists -->
+								{% for comment in article_comments %}
+								<div class="card mb-2 mt-2"><!-- comment for-loop card START -->
+								  <div class="card-body">
+								  	<img src="{{ comment.commented_by.get_user_avatar }}" style="width:40px; height: 40px; border-radius: 50%; float: left;" />
+								    <h5 class="card-title">{{ comment.commented_by.username }}</h5>
+								    <p class="card-text">{{ comment.content|linebreaksbr }}</p>
+
+								    <!-- Like Comment -->
+								    <form action="{% url 'blog:comment-like-unlike' %}" 
+								    method="POST" class="comment-like-fm-cls">
+								    	{%csrf_token %}
+								    	<input type="hidden" name="comment-id" value="{{ comment.id }}">
+								    	<button class="btn btn-default comment-like-btn">Like</button>
+								    </form>
+								    <!-- /Like -->
+
+								    <!-- Toggle Comments -->
+								    <div class="btn-group dropleft float-right">
+									  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    ...
+									  </button>
+									  <div class="dropdown-menu dropdown-menu-right">
+									    <a class="dropdown-item" href="{% url 'blog:comments-delete' comment.id %}">Delete</a>
+									    <a class="dropdown-item" href="{% url 'blog:comment-edit' comment.id %}">Edit</a>
+									  </div>
+									</div>
+									<!-- / Toggle -->
+
+									<!-- ID : {{ comment.id }} -->
+
+								    <section class="reply-section-wrapper">
+
+								     	<span class="btn btn-default reply-btn mb-1">
+								     		<i class="la la-comment mr-2"></i>
+								     		{% if comment.replies_to_article_comments.all %}
+								     		(<b class="comment-reply-count">
+								     			{{ comment.replies_to_article_comments.count }}
+								     		</b>)
+								     		{% endif %} Reply
+								     	</span>
+
+								     	<!-- Reply to Comment Form -->
+								    	<section class="col-lg-12 reply-list-form-wrp" style="display:none;">
+
+
+								     			{% for reply in comment.replies_to_article_comments.all %}
+								     			<div class="breadcrumb ml-3 reply-section" style="background:#f7f7f7 !important;">
+ 												 <p class="mb-1">
+ 												 	<img src="{{ reply.commented_by.get_user_avatar}}" style="width:40px; height: 40px; border-radius: 50%; float: left;margin-right: 3px;" />
+
+ 												 	<i><b class="mr-3">{{ reply.commented_by.username }}</b> 
+ 												 	</i> 
+ 												 	<p>{{ reply.content|linebreaksbr }}</p>
+ 												  </p>
+ 												  <!-- Toggle Reply -->
+													    <div class="btn-group dropleft">
+														  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														    ...
+														  </button>
+														  <div class="dropdown-menu dropdown-menu-right">
+														    <a class="dropdown-item" href="{% url 'blog:comments-delete' reply.id %}">Delete</a>
+														    <a class="dropdown-item" 
+														    href="{% url 'blog:comment-reply-edit' reply.id comment.id %}">Edit</a>
+														  </div>
+														</div>
+														<!-- REPLY ID : {{ reply.id }} -->
+												 <!-- / Toggle -->
+
+									 			</div>
+ 												{% empty %}
+ 												<i class="empty-reply">No replies yet.</i>
+ 												{% endfor %}
+
+
+									     <form action="{% url 'blog:comments' %}" method="post" class="mb-4 reply-to-comment-form-cls article-comment">
+											{% csrf_token %}
+											{{ comment_form|crispy }}
+											<input type="hidden" name="reply_id" value="{{ comment.id }}">
+											<input type="hidden" name="article-id" value="{{ article.id }}">
+											<input type="submit" class="btn btn-outline-dark" name="submit-comment" value="Submit">
+										</form>
+								    	</section>
+										<!-- /Reply to Comment Form -->
+								    </section>
+
+								  </div>
+								</div><!-- comment for-loop card END -->
+								<!-- / Article Comment Lists -->
+								{% endfor %}
+							{% else %}
+							</section>
+
+							<p class="empty-comment">Be the first to comment on this article.</p>
+
+							{% endif %}
+
+						</section>
+
+					</section>
+
+
+				<!-- Left content row -->
+					<section class="col-lg-4" style="position:fixed;right: 0;">
+						<section class="card" style="border:1px solid grey;">
+							Aside Content
+						</section>
+					</section>
+				</section>
+
+				<!-- /Left content row -->
+
+
+				<section class="row">
+					<section class="col-lg-12">
+						  <h4><b>Read Next</b></h4>
+						  {% for similar_article in similar_articles %}
+							    <p><a href="{% url 'blog:article-view' similar_article.slug %}">
+							  	  - {{ similar_article.title }}
+							  	  </a>
+							    </p>
+						  {% endfor %}
+					</section>
+				</section>
+
+	</section>
+{% endblock %}

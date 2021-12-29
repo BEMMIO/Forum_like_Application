@@ -1,0 +1,84 @@
+{% extends '_layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- content -->
+{% block content %}
+
+<section>
+	<section class="container mtt-7">
+				<section class="row">
+				<!-- Left Content row -->
+					<section class="col-lg-8 col-padding-lr-zero" id="content-section-margin">
+						<h3 class="text-center"><i class="la la-file-text" style="font-size: 30px;"></i> Create Article</h3>
+						<form class="text-center" id="article-create-fm" action="." method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ article_create_form|crispy }}
+
+							<!-- Loader -->
+							<!-- <div class="lds-ellipsis"><div></div><div></div><div></div> -->
+
+							<!-- spinner -->
+							<span class="saved-span"><i class="fas fa-cloud"></i><span> Saved</span></span>
+							<span class="saving-span hidden"><i class="fas fa-sync fa-spin"></i><span> Saving...</span></span>
+
+							<input  class="btn primary ml-4 mr-3" type="submit" disabled="true" name="publish-article" value="Publish">
+							<input  class="btn btn-draft-primary" disabled="true" type="submit" name="draft-article" value="Save Draft">
+						</form>
+					</section>
+				<!-- /Left content row -->
+							<section class="col-lg-4">
+								<div class="card"><!-- card -->
+								  <div class="card-body text-center" style="border-bottom: 1px solid #dfdfdf;">
+								  	<span style="background:{{ board.color  }}; width: 120px;display: inline-block; height: 120;text-align: center;">..</span>
+								    <p class="card-text">
+								    	<span class="card-link"><b>{{ board.title }}</b></span>
+								    </p>
+								    <p class="card-text">
+								    	<span class="card-link">{% lorem 30 w random %}</span>
+								    </p>
+								  </div>
+								</div><!-- /card -->
+								<section>
+										{% for user_draft in user_drafts_articles %}
+										<section>
+											<p>{{ user_draft.title }}</p>
+											
+												{%ifequal request.user user_draft.created_by %}
+													<a href="{% url 'blog:article-edit' user_draft.slug %}" class="btn btn-outline-dark float-right mr-2">Edit</a>
+												{% endifequal %}
+
+										</section>
+										{% empty %}
+											<p style="color: grey;" class="mb-2 mt-2">You have no drafts.</p>
+										{% endfor %}
+
+										<img src="{% static 'img/undraw_publish_article_re_3x8h.svg' %}" style="max-width: 100%;">
+								</section>
+							</section>
+				</section>
+				<section class="row mt-4">
+					<section class="col-lg-12">
+						<h4>Articles</h4>
+					</section>
+					<section class="col-lg-12">
+						{% for board_article in board_articles_qs %}
+						<div class="card card-articles">
+						  <div class="card-body">
+						  	<img src="{% static 'img/1.png' %}" class="avatar-shadow mb-1 mr-2 card-article-navbar-avatar float-left">
+						    <h6 class="card-subtitle text-muted">
+						    	<a href="{% url 'blog:article-view' board_article.slug %}">{{ board_article.title }}</a>
+						    </h6>
+						    <p class="card-text lead text-justify">{{ board_article.display_content }}</p>
+						    <p class="card-text card-tags float-right">#tag1 #tag2 #tag3 #tag4</p>
+						    <span class="card-link">1.4k likes</span>
+						    <span class="card-link">2.7k views</span>
+						    <span class="card-link">2k comments</span>
+						  </div>
+						</div>
+						{% endfor %}
+					</section>
+				</section>
+	</section>
+</section>
+{% endblock %}

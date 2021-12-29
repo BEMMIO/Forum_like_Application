@@ -1,0 +1,8 @@
+# celery start 
+
+celery -A config.celery worker --pool=solo -l info
+
+
+# celery beats
+
+celery -A config beat -l INFO

@@ -1,0 +1,76 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="card mb-2 mt-2">
+						<div class="card-body">
+								  	<img src="{{ comment.commented_by.get_user_avatar }}" style="width:40px; height: 40px; border-radius: 50%; float: left;" />
+								    <h5 class="card-title">{{ comment.commented_by.username }}</h5>
+								    <p class="card-text">{{ comment.content|linebreaksbr }}</b>
+
+								    <!-- Toggle Comments -->
+								    <div class="btn-group dropleft float-right">
+									  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    ...
+									  </button>
+									  <div class="dropdown-menu dropdown-menu-right">
+									    <a class="dropdown-item" href="{% url 'blog:comments-delete' comment.id %}">Delete</a>
+									    <a class="dropdown-item" href="{% url 'blog:comment-edit' comment.id %}">Edit</a>
+									  </div>
+									</div>
+									<!-- / Toggle -->
+
+								    <section class="reply-section-wrapper">
+
+								     	<span class="btn btn-default reply-btn mb-1">
+								     		<i class="la la-comment mr-2"></i>
+								     		{% if comment.replies_to_article_comments.all %}
+								     		(<b class="comment-reply-count">{{ comment.replies_to_article_comments.count }}
+								     		</b>)
+								     		{% endif %} Reply
+								     	</span>
+
+								     	<!-- Reply to Comment Form -->
+								    	<section class="col-lg-12 reply-list-form-wrp" style="display:none;">
+								     	{% if comment.replies_to_article_comments.all %}
+
+								     		{% for reply in comment.replies_to_article_comments.all %}
+
+								     			<div class="breadcrumb ml-3 reply-section" style="background:#f7f7f7 !important;">
+ 												 <p>
+ 												 	<img src="{{ reply.commented_by.get_user_avatar}}" style="width:40px; height: 40px; border-radius: 50%; float: left;margin-right: 3px;" />
+ 												 	<i><b class="mr-3">{{ reply.commented_by.username }}</b> 
+ 												 	</i> 
+ 												 	<p>{{ reply.content|linebreaksbr }}</p>
+ 												 	</p>
+
+ 												 	 <!-- Toggle Reply -->
+													    <div class="btn-group dropleft">
+														  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														    ...
+														  </button>
+														  <div class="dropdown-menu dropdown-menu-right">
+														    <a class="dropdown-item" href="{% url 'blog:comments-delete' reply.id %}">Delete</a>
+														    <a class="dropdown-item" 
+														    href="{% url 'blog:comment-reply-edit' reply.id comment.id %}">Edit</a>
+														  </div>
+														</div>
+												     <!-- / Toggle -->
+									 			</div>
+									 		{% empty %}
+ 											<i class="empty-reply">No replies yet.</i>
+ 											{% endfor %}
+
+ 										{% endif %}
+
+									     <form action="{% url 'blog:comments' %}" method="post" class="mb-4 reply-to-comment-form-cls article-comment">
+											{% csrf_token %}
+											{{ comment_form|crispy }}
+											<input type="hidden" name="reply_id" value="{{ comment.id }}">
+											<input type="hidden" name="article-id" value="{{ article.id }}">
+											<input type="submit" class="btn btn-outline-dark" name="submit-comment" value="Submit">
+										</form>
+								    	</section>
+										<!-- /Reply to Comment Form -->
+								    </section>
+
+		</div>
+</div>

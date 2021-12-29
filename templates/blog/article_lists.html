@@ -1,0 +1,101 @@
+{% extends '_layout.html' %}
+{% load static %}
+{% load article_likes %}
+<!-- content -->
+{% block content %}
+
+	<section class="container-fluid" style="background:#f4f5f7;height: 160px;line-height: 160px;">
+		<section class="row">
+			<section class="col-lg-12 text-center">
+				<h1 style="margin: 3em;font-size: 28px;">Article Blog</h1>
+			</section>
+		</section>
+	</section>
+	<section class="container mt-5">
+				<section class="row">
+					<div class="mb-2">
+						<a href="" class="btn btn-default sort-active">Most Relevant</a>
+						<a href="?sort=newest" class="btn btn-default">Newest</a>
+						<a href="?sort=oldest" class="btn btn-default">Oldest</a>
+					</div>
+				</section>
+				<section class="row">
+				<!-- Left Content row -->
+					<section class="col-lg-8 col-padding-lr-zero">
+						{% include 'partials/_article_list_card.html' with article_qs=article_qs %}
+					</section>
+				<!-- /Left content row -->
+							<section class="col-lg-4">
+								<div class="card"><!-- card -->
+								  <div class="card-body text-center" style="border-bottom: 1px solid #dfdfdf;position: relative;">
+								    <img src="{{ request.user.get_user_avatar }}"/ class="card-user-avatar avatar-shadow">
+								    <span class="online-status"></span>
+								    <p class="card-text">
+								    	<span class="card-link"><b>({{ request.user.username }})</b></span>
+								    </p>
+								    <p class="card-text">
+								    	<span class="card-link">[[ user full-name here ]]</span>
+								    </p>
+								  </div>
+								  	<div class="card-text  clearfix mb-3 text-center">
+								  		<p><i class="fa fa-line-chart" style="color: #41ad41;
+    									font-size: 20px;
+    									margin-left: 4px;
+    									vertical-align: -webkit-baseline-middle;
+										"></i> <span style="vertical-align: -webkit-baseline-middle;">Site Stats.</span></p>
+								  	</div>
+								  	<p class="ml-4">Boards Ranking (by <b>views</b>)</p>
+								 	{% for board in board_qs %}
+									    <ul class="list-group">
+										  <li class="list-group-item d-flex justify-content-between align-items-center">
+										    <a href="{% url 'blog:board-view' board.slug %}">{{ board.title }}</a>
+										    <span class="badge badge-pill" style="background:{{ board.color }}; color: #fff;">{{ board.board_view_counts }}</span>
+										  </li>
+										</ul>
+								  	{% endfor %}
+
+								  	<p class="ml-4" style="padding: 7px;">Boards Ranking (by <b>posts</b>)</p>
+								 	{% for board in board_qs_by_articles_count %}
+									    <ul class="list-group">
+										  <li class="list-group-item d-flex justify-content-between align-items-center">
+										    <a href="{% url 'blog:board-view' board.slug %}">{{ board.title }}</a>
+										    <span class="badge badge-pill" style="background:{{ board.color }}; color: #fff;">{{ board.articles_count }}</span>
+										  </li>
+										</ul>
+								  	{% endfor %}
+								  <div>
+								  </div>
+								</div><!-- /card -->
+							</section>
+				</section>
+	</section>
+
+{% if show_welcome_message %}
+<!-- Modal -->
+<!-- TODO : Style this better UI with emoji's and animated texts.-->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="float-right">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body clearfix">
+       <p>Hi <b>{{ request.user.username }}</b>,</p>
+       <p>Welcome to DevBlog</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Modal -->
+{% endif %}
+
+{% endblock %}
+
+<!-- Embedded Js -->
+{% block js %}
+
+console.log(`{{ show_welcome_message }}`)
+
+{% endblock %}

@@ -1,0 +1,21 @@
+ {% load static %}
+ <div class="breadcrumb ml-3 reply-section" style="background:#f7f7f7 !important;">
+ <p>
+ 	<img src="{{ reply.commented_by.get_user_avatar }}" style="width:40px; height: 40px; border-radius: 50%; float: left;margin-right: 3px;" />
+ 	<i>
+        <b class="mr-3">{{ reply.commented_by.username }}</b> 
+ 	</i> 
+ 	<p>{{ reply.content|linebreaksbr }}</p>
+ </p>
+       <!-- Toggle Reply -->
+              <div class="btn-group dropleft">
+                      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ...
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{% url 'blog:comments-delete' reply.id %}">Delete</a>
+                        <a class="dropdown-item" href="{% url 'blog:comment-reply-edit' reply.id comment_reply_parent.id %}">Edit</a>
+                      </div>
+              </div>
+              <!-- / Toggle -->
+</div>

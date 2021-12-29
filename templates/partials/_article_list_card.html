@@ -1,0 +1,52 @@
+			{% load static %}
+
+						{% for article in article_qs %}
+							<div class="card card-articles active-focus-article-card mb-2">
+							  <div class="card-body">
+							  	<img src="{{ article.created_by.get_user_avatar }}" class="avatar-shadow mb-1 mr-2 card-article-navbar-avatar float-left">
+							  	{% if article.created_by.online_tracker.is_online %}
+							  	<span class="avatar-card-user-online"></span>
+							  	{% else %}
+							  	<span class="avatar-card-user-offline"></span>
+							  	{% endif %}
+							  	<p style="color: #333;margin-bottom: 1px;"><b><a href="{% url 'users:user' article.created_by.username  %}">{{ article.created_by.username }}</a></b>
+							  		<span style="vertical-align: text-bottom;color: grey;">.</span>
+							  		<span style="color: grey; font-size: 13px;">
+							  		{{ article.strformat_published_date }}
+							  		<span style="vertical-align: text-bottom;color: grey;">.</span>
+							  		{{ article.timesince_published }}</span>
+							  	</p>
+							  	
+							    <h6 class="card-subtitle text-muted" style="margin-top: 2px;">
+							    	<a href="{% url 'blog:article-view' article.slug %}">{{ article.title }}</a>
+							    </h6>
+							    <p class="card-text lead text-justify text-mrg-lt-rt">
+								<a href="{% url 'blog:article-view' article.slug %}"  style="
+	   																		 color: #8e8e8e;">
+									{{ article.display_content }}
+								</a>
+								</p>
+								<div>
+								    <p class="card-text" style="background-color:{{ article.board.color }}; color: #f1f1f1;width: fit-content;padding: 1.5px;clear: both; display:inline-block;">
+								    	<a href="{% url 'blog:board-view' article.board.slug %}" class="a-link">{{ article.board.title }}</a>
+								    </p>
+									
+							    <span style="display: inline-block;margin-left: 2.8em;">
+							    	{% for tag in article.tags.all %}
+							    		<a href="{% url 'blog:tagged' tag.slug %}" class="mr-1 badge badge-default" style="font-size: 16px;
+	 									   color: #a2a2a2;font-weight: lighter;">
+							    		#{{ tag.name }}
+							    		</a>
+							    	{% endfor %}
+							    </span>
+								</div>
+							    <p class="card-text card-tags float-right">
+							
+							    	<span class="card-link"><i class="la la-bookmark" title="save article"></i></span>
+							    </p>
+							    <span class="card-link">{{ article.likes_counts }} <i class="la la-thumbs-up"></i>  like{{ article.likes_counts|pluralize }}</span>
+							    <span class="card-link">{{ article.views_counts }} <i class="la la-eye"></i> view{{ article.views_counts|pluralize }} </span>
+							    <span class="card-link">{{ article.comment_count }} <i class="la la-comment"></i> comment{{ article.comment_count|pluralize }}</span>
+							  </div>
+							</div>
+						{% endfor %}

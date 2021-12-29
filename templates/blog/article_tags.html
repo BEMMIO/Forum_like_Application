@@ -1,0 +1,30 @@
+{% extends '_layout.html' %}
+{% load static %}
+
+<!-- content -->
+{% block content %}
+
+	<section class="container mtt-7">
+				<section class="row">
+				<!-- Left Content row -->
+					<section class="col-lg-8 col-padding-lr-zero" style="border: 1px solid grey;">
+						<section>
+							<!-- article cover image (if any or a default) -->
+							<h3>Tag : <b>{{ tag.name }}</b></h3>
+						</section>
+						<section>
+							<!-- Article Info -->
+							{% for article in article_qs %}
+								<p>Article-{{article.id}} : {{ article.title }}</p>
+							{% endfor %}
+						</section>
+					</section>
+					<section class="col-lg-4">
+								<div class="card"><!-- card -->
+									article owner info or request user info
+								</div><!-- /card -->
+					</section>
+				<!-- /Left content row -->
+				</section>
+	</section>
+{% endblock %}

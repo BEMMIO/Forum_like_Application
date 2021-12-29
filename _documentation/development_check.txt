@@ -1,0 +1,23 @@
+#a-must
+- config. settings.py
+
+- config database : postgres
+
+- config env variables
+
+- extend password hashes w/ argon2
+
+- config celery & redis,beats
+
+- config logging,sentry
+
+- setup debug-toolbar
+
+- caching with django-redis
+
+
+
+
+# dev-must
+- custom user model
+- project setups : required apps : core,user,accounts,search

@@ -1,0 +1,72 @@
+#ESSENTIAL
+- REDIS (CACHE)
+- CELERY (BACKGROUND TASKS)
+- CELERY_BEATS (SCHEDULING TASKS)
+- SENDGRID API (EMAILING)
+- POSTGRESQL (DB) 
+- SENTRY (MONITORING)
+- HEROKU (DEPLOY): W/ WHITENOISE (STATICFILES) & DAPHNE (& WEBSOCKETS) & CELERY & REDIS
+- WEBSOCKETS
+- CACHING * (RIGHT-WAY !)
+- RATE-LIMITS PACKAGES 
+
+
+
+
+
+> DJANGO : CUSTOM EXCEPTIONS (W/ ARGUMENTS : SALEOR ),USER MODEL,MODEL QUERIES^,TEMPLATES^ & TAGS/FILTERS,VIEWS^. MODEL JSONFIELD, SITE_ID & CURRENT_SITE,ADVANCED PYTHON EXCEPTIONS
+
+
+> DJANGO : MPTT MODEL,META (INDEX, PERMISSIONS),ADVANCED QUERIES, TEMPLATES TAGS/FILTERS, SIGNALS/RECIEVERS,
+& EXPLORE DJANGO & PYTHON , ASYNC IN DJANGO *, DJANGO-HOSTS,S3 BUCKETS FOR MEDIA FILES & SSL CERTIFICATE (CLOUDFLARE),Exists, OuterRef,refresh_from_db,alters_db,model_to_dict(check : saleor to use it better),Q, QuerySet, Value, & PYTHON := .
+EMAIL QUEUING,DATABASE INDEXING. NGINX*,from django.db.models import (
+    BooleanField,
+    Case,
+    Count,
+    DateField,
+    Exists,
+    ExpressionWrapper,
+    F,
+    FilteredRelation,
+    OuterRef,
+    Q,
+    Subquery,
+    Sum,
+    TextField,
+    Value,
+    When,
+)
+
+
+
+
+
+DJANGO TEMPLATE TAGS & FILTERS, 
+MARKDOWN, VIEWS, TEMPLATES, MIDDLEWARES *,
+LOGGING,
+ADVANCED CUSTOM SIGNALS & RECIEVERS,
+SESSIONS & COOKIES (IN DJANGO), 
+FORMS *, 
+VERSATILEIMAGE FIELD PACKAGE,
+BULK_CREATE,
+REFRESH_FROM_DB,
+ALTERS_DB,refresh_from_db,
+django-compressor,
+get_deferred_fields,
+update_fields,
+through,
+through_fields,
+JSONField,
+on_delete & model INDEX. 
+(read more), annotations,Count
+& write custom signals for everything (dont use built-in),
+JSON DATA,
+Enum,
+queryset manager,
+model field 
+db_index,
+select_for_update,
+values,
+annotate,
+prefetch_related
+has_perm (how to add perm in models Meta, remove, check, delete etc.)

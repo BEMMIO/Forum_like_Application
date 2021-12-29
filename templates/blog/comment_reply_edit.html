@@ -1,0 +1,25 @@
+{% extends '_layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- content -->
+{% block content %}
+
+<section>
+	<section class="container mtt-7">
+				<section class="row">
+				<!-- Left Content row -->
+					<section class="col-lg-8 col-padding-lr-zero" id="content-section-margin">
+						<h3 class="text-center"><i class="la la-file-text" style="font-size: 30px;"></i> 
+						Edit Comment
+					    </h3>
+								<form action="." method="post" class="mb-4 comment-form-cls" id="comment-edit-form">
+									{% csrf_token %}
+									{{ comment_edit_form|crispy }}
+									<input type="submit" class="btn btn-primary edit-btn" name="submit-comment" value="Submit">
+								</form>
+					</section>
+				</section>
+	</section>
+</section>
+{% endblock %}

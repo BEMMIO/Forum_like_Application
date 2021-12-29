@@ -1,0 +1,37 @@
+WORK ON :
+
+
+		 - RATE-LIMITS
+
+		 &
+
+		 CACHE *
+
+
+		 - NOTIFICATION
+
+
+
+
+
+
+NEXT COMPONENTS
+
+		# INVITATION (IMPROVE)
+		
+				- sendgrid setup
+				- invitation email
+				- invitation accepted via register
+	
+
+	
+	
+# User account
+
+
+		-	user login/logout (confirm before logout like dev.to)
+		-	recapture/ban on registeration
+		-	authentications/ban etc.
+		-	Follow/Followers (make it much better)
+		-   akismets block-spammers
+		- 	rate-limits to views

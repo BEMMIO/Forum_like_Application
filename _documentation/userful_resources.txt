@@ -1,0 +1,123 @@
+# decouple
+https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
+
+# django how-to write custom decorators
+https://www.bedjango.com/blog/top-6-django-decorators/
+
+# logging
+https://docs.python.org/3/howto/logging.html
+https://lincolnloop.com/blog/django-logging-right-way/
+
+
+#css
+https://css-tricks.com/almanac/selectors/p/placeholder/
+
+#taggit
+https://dev.to/coderasha/how-to-add-tags-to-your-models-in-django-django-packages-series-1-3704
+
+#readtime
+https://pypi.org/project/readtime/
+
+#tinymce - emoji
+https://www.tiny.cloud/blog/emoji-picker/
+
+
+#date strformat eg. Sept 23
+https://ourcodeworld.com/articles/read/555/how-to-format-datetime-objects-in-the-view-and-template-in-django
+
+
+#TIMEZONES
+https://www.kite.com/python/answers/how-to-change-the-django-time-zone-in-python
+https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
+
+
+# LocalStorages
+https://blog.logrocket.com/localstorage-javascript-complete-guide/
+https://www.youtube.com/watch?v=wodWDIdV9BY
+https://www.youtube.com/watch?v=ZKXv_ZHQ654
+
+
+# django messages framework
+https://www.ordinarycoders.com/blog/article/django-messages-framework
+https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
+
+# django favicon (check out other articles on django)
+https://simpleit.rocks/python/django/django-favicon-adding/
+
+
+#ajax-django handling
+https://www.pluralsight.com/guides/work-with-ajax-django
+
+#Tag/filter
+https://www.section.io/engineering-education/custom-template-tags-and-filters-in-django/
+
+
+#font-icon
+https://themewagon.github.io/Ready-Bootstrap-Dashboard/icons.html
+http://demos.themelize.me/appstrap3.2.0/theme/elements-icons-lineawesome.html
+
+#ajax-search
+https://openfolder.sh/django-tutorial-as-you-type-search-with-ajax
+
+
+# FETCH API
+https://www.javascripttutorial.net/javascript-fetch-api/
+https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+
+#cache
+https://wsvincent.com/django-caching-for-beginners/
+https://tute.io/how-to-cache-django-rest-framework-with-redis
+https://testdriven.io/blog/django-caching/
+https://hashedin.com/blog/caching-for-your-django-application-using-django-redis/
+https://github.com/sebleier/django-redis-cache
+https://realpython.com/caching-in-django-with-redis/
+
+#Tags styling
+https://www.youtube.com/channel/UCk7xIEmd3MeyhIu2StLX5yA (Css/Html Styling)
+https://www.youtube.com/watch?v=BnXv1dwvebY&t=525s
+
+#DJango SITE_ID
+https://newbedev.com/django-sites-model-what-is-and-why-is-site-id-1
+https://www.py4u.net/discuss/1254239
+https://www.programcreek.com/python/example/100164/django.conf.settings.SITE_ID
+
+
+#elephant-database (dev.)
+https://www.youtube.com/watch?v=BuJj4LCWP_4
+
+#setup postgres - dev.
+https://www.youtube.com/watch?v=3HPq12w-dww
+
+#ip info API 
+https://ipstack.com/
+
+# active links
+https://valerymelou.com/blog/2020-05-04-how-to-highlight-active-links-in-your-django-website
+https://valerymelou.com/blog/2020-05-04-how-to-highlight-active-links-in-your-django-website
+
+#django ratelimit views
+https://django-ratelimit.readthedocs.io/en/stable/
+
+#recapture
+https://pypi.org/project/django-recaptcha/
+https://www.ordinarycoders.com/blog/article/recaptcha-django#:~:text=Visit%20google.com%2Frecaptcha%20and,your%20localhost%20domain%20(i.e.%20127.0.
+
+# browser window maniulation
+https://stackoverflow.com/questions/1044105/how-do-you-get-the-length-of-a-string
+https://newbedev.com/how-to-remove-the-hash-from-window-location-url-with-javascript-without-page-refresh
+
+
+# Html data-*
+https://www.dofactory.com/html/form/data
+
+# Toastr (Alert Messages)
+https://github.com/CodeSeven/toastr
+https://codeseven.github.io/toastr/
+https://newbedev.com/html-toastr-django-code-example
+
+
+# Illustrator links
+https://undraw.co/search
+https://themeisle.com/illustrations/
